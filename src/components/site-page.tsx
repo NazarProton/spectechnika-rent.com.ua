@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Languages, MapPin, ShieldCheck, Wrench } from "lucide-react";
+import { BrandLogo } from "./brand-logo";
 import { ContactButtons } from "./contact-buttons";
 import { GallerySlider } from "./gallery-slider";
 import { LeadForm } from "./lead-form";
@@ -118,7 +119,7 @@ export function SitePage({ locale }: { locale: Locale }) {
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Spectehnika Rent">
-            <Image src="/brand/logo.png" width={500} height={92} alt="Spectehnika Rent" priority className="h-12 w-auto" />
+            <BrandLogo />
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-700 lg:flex">
             {copy.nav.map((item, index) => (
