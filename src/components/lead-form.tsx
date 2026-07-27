@@ -43,8 +43,11 @@ export function LeadForm({
       return;
     }
 
-    const result = (await response.json().catch(() => ({ stored: false }))) as { stored?: boolean };
-    if (result.stored) {
+    const result = (await response.json().catch(() => ({ stored: false, notified: false }))) as {
+      stored?: boolean;
+      notified?: boolean;
+    };
+    if (result.stored || result.notified) {
       setStatus("sent");
       return;
     }

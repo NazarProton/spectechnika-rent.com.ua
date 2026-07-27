@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createLead } from "@/lib/db";
+import { sendLeadToTelegram } from "@/lib/telegram";
 
 const leadSchema = z.object({
   name: z.string().trim().max(120).optional(),
@@ -18,6 +19,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid lead payload" }, { status: 400 });
   }
 
-  const result = await createLead(parsed.data);
-  return NextResponse.json({ ok: true, ...result });
+  const [dbResult, telegramResult] = await Promise.all([
+    createLead(parsed.data),
+    sendLeadToTelegram(parsed.data),
+  ]);
+
+  return NextResponse.json({ ok: true, ...dbResult, ...telegramResult });
 }
