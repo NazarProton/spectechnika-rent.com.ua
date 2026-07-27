@@ -35,6 +35,7 @@ function contactButtons(locale: Locale) {
 function JsonLd({ locale }: { locale: Locale }) {
   const copy = content[locale];
   const base = localizedUrl(locale);
+  const contactPerson = locale === "uk" ? "Ігор" : siteConfig.contact.person;
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -48,7 +49,7 @@ function JsonLd({ locale }: { locale: Locale }) {
     description: copy.seo.description,
     contactPoint: {
       "@type": "ContactPoint",
-      name: siteConfig.contact.person,
+      name: contactPerson,
       telephone: siteConfig.contact.phone,
       contactType: "customer service",
       availableLanguage: ["uk", "en"],
@@ -105,6 +106,7 @@ export function SitePage({ locale }: { locale: Locale }) {
   const copy = content[locale];
   const otherLocale = locale === "uk" ? "en" : "uk";
   const currentLocaleLabel = locale === "uk" ? "УК" : "EN";
+  const contactPerson = locale === "uk" ? "Ігор" : siteConfig.contact.person;
   const slides = gallery.map((item) => ({
     src: item.src,
     alt: locale === "uk" ? item.altUk : item.altEn,
@@ -177,7 +179,7 @@ export function SitePage({ locale }: { locale: Locale }) {
                 <ShieldCheck className="mt-1 size-6 text-yellow-300" />
                 <div>
                   <p className="font-black">{locale === "uk" ? "Контактна особа" : "Contact person"}</p>
-                  <p className="mt-1 text-2xl font-black">{siteConfig.contact.person}</p>
+                  <p className="mt-1 text-2xl font-black">{contactPerson}</p>
                   <p className="mt-2 text-zinc-200">{siteConfig.contact.phoneDisplay}</p>
                 </div>
               </div>
