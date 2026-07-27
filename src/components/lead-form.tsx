@@ -53,15 +53,21 @@ export function LeadForm({
   }
 
   return (
-    <form action={submit} className="grid gap-3">
+    <form action={submit} autoComplete="on" className="grid gap-3">
       <input
         name="name"
+        type="text"
+        autoComplete="name"
+        autoCapitalize="words"
         placeholder={labels.name}
         className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-sm outline-none ring-yellow-400 transition focus:ring-2"
       />
       <input
         name="phone"
+        type="tel"
         required
+        autoComplete="tel"
+        inputMode="tel"
         placeholder={labels.phone}
         className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-sm outline-none ring-yellow-400 transition focus:ring-2"
       />
@@ -69,6 +75,7 @@ export function LeadForm({
         name="message"
         required
         minLength={5}
+        autoComplete="off"
         placeholder={labels.message}
         className="min-h-32 rounded-md border border-zinc-200 bg-white px-4 py-3 text-sm outline-none ring-yellow-400 transition focus:ring-2"
       />
