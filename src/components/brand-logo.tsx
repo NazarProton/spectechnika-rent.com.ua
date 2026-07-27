@@ -9,13 +9,13 @@ export function BrandLogo() {
         height={74}
         alt=""
         priority
-        className="h-10 w-auto object-contain sm:h-12"
+        className="h-9 w-auto object-contain sm:h-12"
       />
-      <div className="hidden min-w-0 sm:block">
+      <div className="min-w-0">
         <div className="h-1 w-full bg-zinc-950" />
         <div className="flex items-baseline pt-1 font-black italic leading-none tracking-normal">
-          <span className="text-[17px] text-zinc-950 md:text-[20px]">SPECTEHNIKA</span>
-          <span className="pl-1 text-[17px] text-[#f2b705] md:text-[20px]">RENT</span>
+          <span className="text-[13px] text-zinc-950 sm:text-[17px] md:text-[20px]">SPECTEHNIKA</span>
+          <span className="pl-1 text-[13px] text-[#f2b705] sm:text-[17px] md:text-[20px]">RENT</span>
         </div>
         <div className="mt-1 h-1 w-full skew-x-[-28deg] bg-[#f2b705]" />
       </div>

@@ -5,6 +5,7 @@ import { BrandLogo } from "./brand-logo";
 import { ContactButtons } from "./contact-buttons";
 import { GallerySlider } from "./gallery-slider";
 import { LeadForm } from "./lead-form";
+import { MobileMenu } from "./mobile-menu";
 import { contactHref, localizedUrl, siteConfig, type Locale } from "@/lib/config";
 import { content, gallery, type Channel } from "@/lib/content";
 
@@ -108,6 +109,8 @@ export function SitePage({ locale }: { locale: Locale }) {
   const otherLocale = locale === "uk" ? "en" : "uk";
   const currentLocaleLabel = locale === "uk" ? "УК" : "EN";
   const contactPerson = locale === "uk" ? "Ігор" : siteConfig.contact.person;
+  const anchors = ["equipment", "services", "gallery", "faq", "contacts"];
+  const buttons = contactButtons(locale);
   const slides = gallery.map((item) => ({
     src: item.src,
     alt: locale === "uk" ? item.altUk : item.altEn,
@@ -118,17 +121,17 @@ export function SitePage({ locale }: { locale: Locale }) {
       <JsonLd locale={locale} />
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Spectehnika Rent">
+          <Link href={`/${locale}#top`} className="flex items-center gap-3" aria-label="Spectehnika Rent">
             <BrandLogo />
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-700 lg:flex">
             {copy.nav.map((item, index) => (
-              <a key={item} href={`#${["equipment", "services", "gallery", "faq", "contacts"][index]}`} className="hover:text-black">
+              <a key={item} href={`#${anchors[index]}`} className="hover:text-black">
                 {item}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 lg:flex">
             <Link
               href={`/${otherLocale}`}
               className="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-200 bg-white px-3 text-sm font-bold text-zinc-900 hover:bg-zinc-50"
@@ -143,11 +146,20 @@ export function SitePage({ locale }: { locale: Locale }) {
               {siteConfig.contact.phoneDisplay}
             </a>
           </div>
+          <MobileMenu
+            nav={copy.nav}
+            anchors={anchors}
+            buttons={buttons}
+            locale={locale}
+            otherLocale={otherLocale}
+            currentLocaleLabel={currentLocaleLabel}
+            phoneDisplay={siteConfig.contact.phoneDisplay}
+          />
         </div>
       </header>
 
-      <main className="flex-1">
-        <section className="relative overflow-hidden bg-zinc-950 text-white">
+      <main id="top" className="flex-1">
+        <section className="relative scroll-mt-16 overflow-hidden bg-zinc-950 text-white">
           <div className="absolute inset-0">
             <Image
               src="/images/excavator-transport-yellow-optimized.jpg"
@@ -165,7 +177,7 @@ export function SitePage({ locale }: { locale: Locale }) {
               <h1 className="text-4xl font-black leading-tight tracking-normal sm:text-5xl lg:text-6xl">{copy.hero.title}</h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-100">{copy.hero.body}</p>
               <div className="mt-8">
-                <ContactButtons buttons={contactButtons(locale)} locale={locale} />
+                <ContactButtons buttons={buttons} locale={locale} />
               </div>
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {copy.hero.stats.map((stat) => (
@@ -244,7 +256,7 @@ export function SitePage({ locale }: { locale: Locale }) {
               <h2 className="text-3xl font-black sm:text-4xl">{copy.contact.title}</h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-200">{copy.contact.body}</p>
               <div className="mt-8">
-                <ContactButtons buttons={contactButtons(locale)} locale={locale} />
+                <ContactButtons buttons={buttons} locale={locale} />
               </div>
             </div>
             <div className="rounded-md bg-white p-6 text-zinc-950">
@@ -289,7 +301,7 @@ export function SitePage({ locale }: { locale: Locale }) {
       <footer className="border-t border-zinc-200 bg-white py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-4 text-sm text-zinc-600 sm:px-6 lg:px-8">
           <ContactButtons
-            buttons={contactButtons(locale).filter((button) => button.channel !== "telegram" || !button.disabled)}
+            buttons={buttons.filter((button) => button.channel !== "telegram" || !button.disabled)}
             locale={locale}
             compact
             grid
