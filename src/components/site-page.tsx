@@ -191,7 +191,7 @@ export function SitePage({ locale }: { locale: Locale }) {
         <section id="equipment" className="bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <p className="text-sm font-black uppercase text-yellow-600">Fleet</p>
+              <p className="text-sm font-black uppercase text-yellow-600">{locale === "uk" ? "Техніка" : "Equipment"}</p>
               <h2 className="mt-3 text-3xl font-black text-zinc-950 sm:text-4xl">{copy.equipment.title}</h2>
               <p className="mt-4 text-lg leading-8 text-zinc-600">{copy.equipment.lead}</p>
             </div>
@@ -212,7 +212,7 @@ export function SitePage({ locale }: { locale: Locale }) {
         <section id="services" className="bg-zinc-100 py-20">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
             <div>
-              <p className="text-sm font-black uppercase text-yellow-700">Services</p>
+              <p className="text-sm font-black uppercase text-yellow-700">{locale === "uk" ? "Послуги" : "Services"}</p>
               <h2 className="mt-3 text-3xl font-black text-zinc-950 sm:text-4xl">{copy.services.title}</h2>
               <p className="mt-4 text-lg leading-8 text-zinc-600">{copy.services.lead}</p>
             </div>
