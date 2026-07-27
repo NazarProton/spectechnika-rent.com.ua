@@ -70,8 +70,8 @@ export function MobileMenu({
       </button>
 
       <div
-        className={`fixed inset-x-0 top-16 z-50 origin-top border-b border-zinc-200 bg-white shadow-xl transition duration-200 ${
-          open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
+        className={`fixed inset-x-0 top-16 z-50 origin-top bg-white shadow-[0_16px_30px_rgba(24,24,27,0.10)] transition duration-200 ${
+          open ? "scale-y-100 opacity-100" : "pointer-events-none scale-y-95 opacity-0"
         }`}
       >
         <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5">
