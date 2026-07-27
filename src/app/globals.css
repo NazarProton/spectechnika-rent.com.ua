@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #facc15;
+  color: #111111;
+}
+
+.work-swiper {
+  --swiper-theme-color: #facc15;
+  --swiper-navigation-size: 24px;
+  padding-bottom: 42px !important;
+}
+
+.work-swiper .swiper-button-next,
+.work-swiper .swiper-button-prev {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: 2px solid #facc15;
+  background: rgba(17, 17, 17, 0.55);
+  color: #facc15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.work-swiper .swiper-button-next:hover,
+.work-swiper .swiper-button-prev:hover {
+  background: rgba(17, 17, 17, 0.82);
+}
+
+.work-swiper .swiper-button-next::after,
+.work-swiper .swiper-button-prev::after {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.work-swiper .swiper-pagination-bullet {
+  width: 28px;
+  height: 4px;
+  border-radius: 999px;
+}

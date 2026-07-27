@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 128" role="img" aria-label="Spectehnika Rent logo">
+  <rect width="650" height="128" fill="#ffffff"/>
+  <rect x="4" y="8" width="112" height="112" rx="18" fill="#111111"/>
+  <rect x="18" y="22" width="84" height="84" rx="12" fill="#facc15"/>
+  <path d="M30 76h37.5c10.2 0 18.5-8.3 18.5-18.5V36H73v21.5a5.5 5.5 0 0 1-5.5 5.5H30v13Z" fill="#111111"/>
+  <path d="M34 53h20.6c2.8 0 5.5 1.1 7.5 3.1l10.6 10.6 9.2-9.2-10.6-10.6A23.6 23.6 0 0 0 54.6 40H34v13Z" fill="#111111"/>
+  <path d="M78 71l17 4-6 14-16-9 5-9Z" fill="#111111"/>
+  <path d="M30 87h14v9H30zm21 0h14v9H51zm21 0h14v9H72z" fill="#111111"/>
+  <path d="M148 42h304" stroke="#111111" stroke-width="8" stroke-linecap="square"/>
+  <text x="148" y="82" fill="#111111" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="40" font-style="italic" font-weight="900" letter-spacing="0">SPECTEHNIKA</text>
+  <text x="475" y="82" fill="#f2b705" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="40" font-style="italic" font-weight="900" letter-spacing="0">RENT</text>
+  <path d="M148 101h430l-10 10H148z" fill="#f2b705"/>
+</svg>
