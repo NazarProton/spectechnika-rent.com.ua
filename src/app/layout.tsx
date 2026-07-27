@@ -26,7 +26,9 @@ export const metadata: Metadata = {
   creator: "Spectehnika Rent",
   publisher: "Spectehnika Rent",
   icons: {
+    shortcut: "/favicon.ico",
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/brand/favicon.svg", type: "image/svg+xml" },
       { url: "/brand/favicon-64.png", sizes: "64x64", type: "image/png" },
       { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
