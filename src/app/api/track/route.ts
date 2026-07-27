@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactChannelSchema, recordContactClick } from "@/lib/db";
+import { sendContactClickToTelegram } from "@/lib/telegram";
 
 export async function POST(request: NextRequest) {
   const payload = await request.json().catch(() => ({}));
@@ -9,13 +10,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid channel" }, { status: 400 });
   }
 
-  const result = await recordContactClick({
+  const input = {
     channel: channel.data,
     locale: typeof payload.locale === "string" ? payload.locale : "uk",
     path: typeof payload.path === "string" ? payload.path : "/",
     referrer: request.headers.get("referer"),
     userAgent: request.headers.get("user-agent"),
-  });
+  };
 
-  return NextResponse.json({ ok: true, ...result });
+  const [dbResult, telegramResult] = await Promise.all([
+    recordContactClick(input),
+    sendContactClickToTelegram(input),
+  ]);
+
+  return NextResponse.json({ ok: true, ...dbResult, ...telegramResult });
 }
