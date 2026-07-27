@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Spectehnika Rent logo mark">
-  <rect width="128" height="128" rx="20" fill="#111111"/>
-  <rect x="14" y="14" width="100" height="100" rx="14" fill="#facc15"/>
-  <path d="M30 82h42c10.5 0 19-8.5 19-19V36H78v27a6 6 0 0 1-6 6H30v13Z" fill="#111111"/>
-  <path d="M35 55h21.5c2.6 0 5.1 1 7 2.9L75 69.4l9.2-9.2-11.5-11.5A22.9 22.9 0 0 0 56.5 42H35v13Z" fill="#111111"/>
-  <path d="M80 76l20 5-7 16-18-11 5-10Z" fill="#111111"/>
-  <path d="M28 95h16v10H28zm24 0h16v10H52zm24 0h16v10H76z" fill="#111111"/>
-</svg>

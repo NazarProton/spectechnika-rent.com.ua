@@ -116,7 +116,7 @@ export function SitePage({ locale }: { locale: Locale }) {
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Spectehnika Rent">
-            <Image src="/brand/logo.svg" width={220} height={48} alt="Spectehnika Rent" priority className="h-10 w-auto" />
+            <Image src="/brand/logo.png" width={500} height={92} alt="Spectehnika Rent" priority className="h-12 w-auto" />
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-700 lg:flex">
             {copy.nav.map((item, index) => (
