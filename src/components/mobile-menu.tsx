@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Languages, Menu, PhoneCall, X } from "lucide-react";
+import { Languages, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { ContactButtons } from "./contact-buttons";
+import { FaTelegramPlane, FaViber, FaWhatsapp } from "react-icons/fa";
+import { PhoneCall } from "lucide-react";
 import type { Channel } from "@/lib/content";
 
 type ContactButton = {
@@ -14,24 +15,47 @@ type ContactButton = {
   primary?: boolean;
 };
 
+const icons = {
+  phone: PhoneCall,
+  whatsapp: FaWhatsapp,
+  telegram: FaTelegramPlane,
+  viber: FaViber,
+};
+
 export function MobileMenu({
   nav,
   anchors,
   buttons,
-  locale,
   otherLocale,
   currentLocaleLabel,
-  phoneDisplay,
 }: {
   nav: string[];
   anchors: string[];
   buttons: ContactButton[];
-  locale: string;
   otherLocale: string;
   currentLocaleLabel: string;
-  phoneDisplay: string;
 }) {
   const [open, setOpen] = useState(false);
+
+  function track(channel: Channel) {
+    const payload = JSON.stringify({
+      channel,
+      locale: document.documentElement.lang || "uk",
+      path: window.location.pathname,
+    });
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/api/track", new Blob([payload], { type: "application/json" }));
+      return;
+    }
+
+    void fetch("/api/track", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: payload,
+      keepalive: true,
+    });
+  }
 
   return (
     <div className="lg:hidden">
@@ -65,25 +89,38 @@ export function MobileMenu({
           </nav>
 
           <div className="grid grid-cols-2 gap-2">
+            {buttons.map((button) => {
+              const Icon = icons[button.channel];
+              const classes = button.primary
+                ? "border-yellow-400 bg-yellow-400 text-black hover:bg-yellow-300"
+                : "border-zinc-200 bg-white text-zinc-950 hover:border-yellow-400 hover:bg-yellow-50";
+
+              return (
+                <a
+                  key={button.channel}
+                  href={button.href}
+                  onClick={() => {
+                    track(button.channel);
+                    setOpen(false);
+                  }}
+                  className={`inline-flex h-10 items-center justify-center gap-2 rounded-md border px-4 text-sm font-bold transition ${classes}`}
+                  target={button.channel === "phone" ? undefined : "_blank"}
+                  rel={button.channel === "phone" ? undefined : "noopener noreferrer"}
+                >
+                  <Icon className="size-4" />
+                  {button.label}
+                </a>
+              );
+            })}
             <Link
               href={`/${otherLocale}`}
               onClick={() => setOpen(false)}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-zinc-200 bg-white px-4 text-sm font-bold text-zinc-900 hover:bg-zinc-50"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-200 bg-white px-4 text-sm font-bold text-zinc-900 hover:bg-zinc-50"
             >
               <Languages className="size-4" />
               {currentLocaleLabel}
             </Link>
-            <a
-              href={buttons[0]?.href || "#"}
-              onClick={() => setOpen(false)}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-yellow-400 px-4 text-sm font-black text-black hover:bg-yellow-300"
-            >
-              <PhoneCall className="size-4" />
-              {phoneDisplay}
-            </a>
           </div>
-
-          <ContactButtons buttons={buttons} locale={locale} compact grid />
         </div>
       </div>
     </div>

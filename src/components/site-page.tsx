@@ -150,10 +150,8 @@ export function SitePage({ locale }: { locale: Locale }) {
             nav={copy.nav}
             anchors={anchors}
             buttons={buttons}
-            locale={locale}
             otherLocale={otherLocale}
             currentLocaleLabel={currentLocaleLabel}
-            phoneDisplay={siteConfig.contact.phoneDisplay}
           />
         </div>
       </header>
