@@ -64,7 +64,7 @@ export function LeadForm({
         autoComplete="name"
         autoCapitalize="words"
         placeholder={labels.name}
-        className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-sm outline-none ring-yellow-400 transition focus:ring-2"
+        className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-base outline-none ring-yellow-400 transition focus:ring-2 sm:text-sm"
       />
       <input
         name="phone"
@@ -73,14 +73,14 @@ export function LeadForm({
         autoComplete="tel"
         inputMode="tel"
         placeholder={labels.phone}
-        className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-sm outline-none ring-yellow-400 transition focus:ring-2"
+        className="h-12 rounded-md border border-zinc-200 bg-white px-4 text-base outline-none ring-yellow-400 transition focus:ring-2 sm:text-sm"
       />
       <textarea
         name="message"
         required
         autoComplete="off"
         placeholder={labels.message}
-        className="min-h-32 rounded-md border border-zinc-200 bg-white px-4 py-3 text-sm outline-none ring-yellow-400 transition focus:ring-2"
+        className="min-h-32 rounded-md border border-zinc-200 bg-white px-4 py-3 text-base outline-none ring-yellow-400 transition focus:ring-2 sm:text-sm"
       />
       <button
         type="submit"
