@@ -6,21 +6,18 @@ import { Send } from "lucide-react";
 export function LeadForm({
   locale,
   labels,
-  fallbackHref,
 }: {
   locale: string;
-  fallbackHref: string;
   labels: {
     name: string;
     phone: string;
     message: string;
     submit: string;
     success: string;
-    fallback: string;
     error: string;
   };
 }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "fallback" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function submit(formData: FormData) {
     setStatus("sending");
@@ -52,16 +49,7 @@ export function LeadForm({
       return;
     }
 
-    const text = [
-      "Заявка з сайту Spectehnika Rent",
-      payload.name ? `Ім'я: ${payload.name}` : "",
-      `Телефон: ${payload.phone}`,
-      `Задача: ${payload.message}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
-    window.open(`${fallbackHref}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
-    setStatus("fallback");
+    setStatus("error");
   }
 
   return (
@@ -92,7 +80,6 @@ export function LeadForm({
         {status === "sending" ? "..." : labels.submit}
       </button>
       {status === "sent" && <p className="text-sm font-medium text-green-700">{labels.success}</p>}
-      {status === "fallback" && <p className="text-sm font-medium text-yellow-800">{labels.fallback}</p>}
       {status === "error" && <p className="text-sm font-medium text-red-700">{labels.error}</p>}
     </form>
   );

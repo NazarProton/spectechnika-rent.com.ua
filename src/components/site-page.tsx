@@ -261,17 +261,12 @@ export function SitePage({ locale }: { locale: Locale }) {
               <h3 className="mb-4 text-xl font-black">{copy.contact.formTitle}</h3>
               <LeadForm
                 locale={locale}
-                fallbackHref={contactHref("whatsapp")}
                 labels={{
                   name: copy.contact.name,
                   phone: copy.contact.phone,
                   message: copy.contact.message,
                   submit: copy.contact.submit,
                   success: locale === "uk" ? "Заявку збережено. Ми зв'яжемось з вами." : "Request saved. We will contact you.",
-                  fallback:
-                    locale === "uk"
-                      ? "База ще не підключена, тому відкрили WhatsApp з текстом заявки."
-                      : "Database is not connected yet, so WhatsApp opened with the request text.",
                   error: locale === "uk" ? "Щось пішло не так. Подзвоніть нам напряму." : "Something went wrong. Please call us directly.",
                 }}
               />
