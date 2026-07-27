@@ -25,7 +25,7 @@ export async function sendLeadToTelegram(input: {
   if (!token || !chatId) return { notified: false };
 
   const lines = [
-    "<b>Нова заявка з сайту Spectehnika Rent</b>",
+    "<b>Нова заявка з сайту Спецтехніка Рент</b>",
     "",
     `<b>Ім'я:</b> ${escapeHtml(input.name || "Не вказано")}`,
     `<b>Телефон:</b> ${escapeHtml(input.phone)}`,
@@ -38,7 +38,7 @@ export async function sendLeadToTelegram(input: {
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json; charset=utf-8" },
     body: JSON.stringify({
       chat_id: chatId,
       text: lines.join("\n"),
