@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import { Send } from "lucide-react";
 
 export function LeadForm({
@@ -19,8 +19,11 @@ export function LeadForm({
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  async function submit(formData: FormData) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setStatus("sending");
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       name: String(formData.get("name") || ""),
       phone: String(formData.get("phone") || ""),
@@ -46,6 +49,7 @@ export function LeadForm({
     };
     if (result.stored || result.notified) {
       setStatus("sent");
+      form.reset();
       return;
     }
 
@@ -53,7 +57,7 @@ export function LeadForm({
   }
 
   return (
-    <form action={submit} autoComplete="on" className="grid gap-3">
+    <form onSubmit={submit} autoComplete="on" className="grid gap-3">
       <input
         name="name"
         type="text"
@@ -74,12 +78,12 @@ export function LeadForm({
       <textarea
         name="message"
         required
-        minLength={5}
         autoComplete="off"
         placeholder={labels.message}
         className="min-h-32 rounded-md border border-zinc-200 bg-white px-4 py-3 text-sm outline-none ring-yellow-400 transition focus:ring-2"
       />
       <button
+        type="submit"
         disabled={status === "sending"}
         className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-yellow-400 px-5 text-sm font-bold text-black transition hover:bg-yellow-300 disabled:cursor-wait disabled:opacity-70"
       >

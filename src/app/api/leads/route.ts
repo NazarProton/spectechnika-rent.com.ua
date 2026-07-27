@@ -6,7 +6,7 @@ import { sendLeadToTelegram } from "@/lib/telegram";
 const leadSchema = z.object({
   name: z.string().trim().max(120).optional(),
   phone: z.string().trim().min(7).max(40),
-  message: z.string().trim().min(5).max(1500),
+  message: z.string().trim().min(1).max(1500),
   locale: z.string().trim().max(8).default("uk"),
   path: z.string().trim().max(240).optional(),
 });
