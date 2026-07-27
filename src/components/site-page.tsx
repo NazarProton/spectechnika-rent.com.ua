@@ -113,7 +113,7 @@ export function SitePage({ locale }: { locale: Locale }) {
   return (
     <>
       <JsonLd locale={locale} />
-      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Spectehnika Rent">
             <Image src="/brand/logo.png" width={500} height={92} alt="Spectehnika Rent" priority className="h-12 w-auto" />

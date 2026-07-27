@@ -43,3 +43,6 @@ next-env.d.ts
 # codex workspace artifacts
 /work/
 /outputs/
+
+.vercel
+.env*
