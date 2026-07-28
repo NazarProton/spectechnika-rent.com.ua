@@ -9,6 +9,66 @@ function escapeHtml(value: string) {
     .replaceAll('"', "&quot;");
 }
 
+function cleanReferrer(value?: string | null) {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    const trackingParams = [
+      "fbclid",
+      "gclid",
+      "msclkid",
+      "yclid",
+      "ttclid",
+      "igshid",
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_content",
+      "utm_term",
+    ];
+    trackingParams.forEach((param) => url.searchParams.delete(param));
+    url.hash = "";
+
+    const query = url.searchParams.toString();
+    return `${url.origin}${url.pathname}${query ? `?${query}` : ""}`;
+  } catch {
+    return value.length > 120 ? `${value.slice(0, 120)}...` : value;
+  }
+}
+
+function formatDevice(userAgent?: string | null) {
+  if (!userAgent) return null;
+
+  const device = /iPhone/i.test(userAgent)
+    ? "iPhone"
+    : /iPad/i.test(userAgent)
+      ? "iPad"
+      : /Android/i.test(userAgent)
+        ? "Android"
+        : /Windows/i.test(userAgent)
+          ? "Windows"
+          : /Mac OS X|Macintosh/i.test(userAgent)
+            ? "Mac"
+            : "Unknown";
+
+  const browser = /CriOS|Chrome/i.test(userAgent)
+    ? "Chrome"
+    : /FxiOS|Firefox/i.test(userAgent)
+      ? "Firefox"
+      : /Edg/i.test(userAgent)
+        ? "Edge"
+        : /Safari/i.test(userAgent)
+          ? "Safari"
+          : "Browser";
+
+  return `${device} / ${browser}`;
+}
+
+function formatLocale(locale: string) {
+  return locale === "uk" ? "Українська" : locale === "en" ? "English" : locale;
+}
+
 export function hasTelegramLeadNotifications() {
   return Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
 }
@@ -75,14 +135,16 @@ export async function sendContactClickToTelegram(input: {
 
   if (!token || !chatId) return { notified: false };
 
+  const referrer = cleanReferrer(input.referrer);
+  const device = formatDevice(input.userAgent);
   const lines = [
-    "<b>Клік по контакту на сайті</b>",
+    "<b>Клік по контакту</b>",
     "",
     `<b>Кнопка:</b> ${escapeHtml(channelLabels[input.channel])}`,
-    `<b>Мова:</b> ${escapeHtml(input.locale)}`,
+    `<b>Мова:</b> ${escapeHtml(formatLocale(input.locale))}`,
     `<b>Сторінка:</b> ${escapeHtml(input.path || "/")}`,
-    input.referrer ? `<b>Звідки:</b> ${escapeHtml(input.referrer)}` : "",
-    input.userAgent ? `<b>Пристрій:</b> ${escapeHtml(input.userAgent.slice(0, 180))}` : "",
+    referrer ? `<b>Звідки:</b> ${escapeHtml(referrer)}` : "",
+    device ? `<b>Пристрій:</b> ${escapeHtml(device)}` : "",
   ].filter(Boolean);
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
