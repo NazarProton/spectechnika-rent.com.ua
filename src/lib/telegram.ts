@@ -37,6 +37,33 @@ function cleanReferrer(value?: string | null) {
   }
 }
 
+function formatTrafficSource(value?: string | null) {
+  if (!value) return "Прямий перехід";
+
+  try {
+    const url = new URL(value);
+    const source = url.searchParams.get("utm_source")?.toLowerCase();
+    const host = url.hostname.toLowerCase();
+
+    if (source?.includes("facebook") || source?.includes("fb") || url.searchParams.has("fbclid")) {
+      return "Facebook / Instagram";
+    }
+
+    if (source?.includes("instagram")) return "Instagram";
+    if (source?.includes("google") || url.searchParams.has("gclid")) return "Google";
+    if (source?.includes("tiktok") || url.searchParams.has("ttclid")) return "TikTok";
+    if (source?.includes("telegram") || host.includes("t.me") || host.includes("telegram")) return "Telegram";
+    if (source) return source;
+
+    if (host.includes("facebook.com") || host.includes("instagram.com")) return "Facebook / Instagram";
+    if (host.includes("google.")) return "Google";
+
+    return host.replace(/^www\./, "");
+  } catch {
+    return "Невідомо";
+  }
+}
+
 function formatDevice(userAgent?: string | null) {
   if (!userAgent) return null;
 
@@ -136,6 +163,7 @@ export async function sendContactClickToTelegram(input: {
   if (!token || !chatId) return { notified: false };
 
   const referrer = cleanReferrer(input.referrer);
+  const source = formatTrafficSource(input.referrer);
   const device = formatDevice(input.userAgent);
   const lines = [
     "<b>Клік по контакту</b>",
@@ -143,6 +171,7 @@ export async function sendContactClickToTelegram(input: {
     `<b>Кнопка:</b> ${escapeHtml(channelLabels[input.channel])}`,
     `<b>Мова:</b> ${escapeHtml(formatLocale(input.locale))}`,
     `<b>Сторінка:</b> ${escapeHtml(input.path || "/")}`,
+    `<b>Джерело:</b> ${escapeHtml(source)}`,
     referrer ? `<b>Звідки:</b> ${escapeHtml(referrer)}` : "",
     device ? `<b>Пристрій:</b> ${escapeHtml(device)}` : "",
   ].filter(Boolean);
