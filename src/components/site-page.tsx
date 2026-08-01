@@ -177,15 +177,6 @@ export function SitePage({ locale }: { locale: Locale }) {
               <div className="mt-8">
                 <ContactButtons buttons={buttons} locale={locale} />
               </div>
-              {locale === "uk" && (
-                <Link
-                  href="/uk/orenda-mini-ekskavatora-lviv"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-black text-yellow-300 underline decoration-yellow-300/60 underline-offset-4 hover:text-yellow-200"
-                >
-                  Окрема сторінка: оренда мініекскаватора у Львові
-                  <ArrowRight className="size-4" />
-                </Link>
-              )}
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {copy.hero.stats.map((stat) => (
                   <div key={stat} className="border-l-4 border-yellow-400 bg-white/10 px-4 py-3 text-sm font-bold backdrop-blur">
